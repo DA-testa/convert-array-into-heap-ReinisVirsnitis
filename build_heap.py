@@ -30,39 +30,43 @@ def build_heap(data):
 
 
 def main():
-    input_text = input()
+     input_text = input()
+    if 'F' in input_text:
+        input_file = input()
+        input_file = "tests/" + input_file
+        if 'a' not in input_file:
+            try:
+                with open(input_file, "r") as f:
+                    n = int(f.readline())          
+                    data = list(map(int, f.readline().split()))
 
-    if input_text[0] == 'F':
-        input_file = input().strip()
-        input_file = f"tests/{input_file}"
-    
-    if 'a' not in input_file:
-        try:
-            with open(input_file, "r") as f:
-                length = int(f.readline())
-                data = list(map(int, f.readline().split()))
-                assert len(data) == length
-                swaps = build_heap(data)
-                assert len(swaps) < 4 * length
+                    # checks if length of data is the same as the said length
+                    assert len(data) == n
 
-                print(len(swaps))
-                for i, j in swaps:
-                    print(i, j)
+                    swaps = build_heap(data)
 
-        except FileNotFoundError:
-            print("File_not_found_error")
-            return
-        
-    elif input_text[0] == 'I':
-        length = int(input())
-        data = list(map(int, input(). split()))
-        assert len(data) == length
+              
+                    print(len(swaps))
+                    for i, j in swaps:
+                        print(i, j)
+
+            except FileNotFoundError:
+                return print("File_not_found_error")
+
+    if 'I' in input_text:
+        # input from keyboard
+        n = int(input())
+        data = list(map(int, input().split()))
+
+        assert len(data) == n
+
         swaps = build_heap(data)
-        assert len(swaps) < 4 * length
 
         print(len(swaps))
         for i, j in swaps:
             print(i, j)
+
+
 
     
 if __name__ == "__main__":
