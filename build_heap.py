@@ -12,7 +12,7 @@ def heup(data, swaps, a):
     if a == 0:
         return
     if data[a] < data[p]:
-        swap(data, a, swaps, p)
+        swap(data, swaps, a, p)
         heup(data, swaps, p)
     
 def build_heap(data):
