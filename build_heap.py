@@ -30,7 +30,7 @@ def build_heap(data):
 
 
 def main():
-     input_text = input()
+    input_text = input()
     if 'F' in input_text:
         input_file = input()
         input_file = "tests/" + input_file
