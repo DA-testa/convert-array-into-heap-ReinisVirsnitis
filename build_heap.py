@@ -1,27 +1,33 @@
 # python3
 
 
+def swap(data, swaps, c, p):
+    swaps.append((p, c))
+    data[c], data[p] = data[p], data[c]
+
+
+
+def heup(data, swaps, a):
+    p = (a - 1) // 2
+    if a == 0:
+        return
+    if data[a] < data[p]:
+        swap(data, a, swaps, p)
+        heup(data, swaps, p)
+    
 def build_heap(data):
-    swaps = []
     n = len(data)
-    for i in range(n // 2, -`1, -1`):
-        sift_down(i, data, swaps)
+    swaps = []
+
+    if n == 0:
+        swaps.append(0)
+        return swaps
+
+    for i in range(n-1, -1, -1):
+        heup(data, swaps, i)
+
     return swaps
 
-
-def sift_down(i, data, swaps):
-    n = len(data)
-    min_index = i
-    left_child = 2 * i + 1
-    if left_child < n and data[left_child] < data[min_index]:
-        min_index = left_child
-    right_child = 2 * i + 2
-    if right_child < n and data[right_child] < data[min_index]:
-        min_index = right_child
-    if i != min_index:
-        data[i], data[min_index] = data[min_index], data[i]
-        swaps.append((i, min_index))
-        sift_down(min_index, data, swaps)
 
 def main():
     input_text = input()
@@ -37,29 +43,28 @@ def main():
                 data = list(map(int, f.readline().split()))
                 assert len(data) == length
                 swaps = build_heap(data)
-                assert len(swaps) < 4 * lenght
+                assert len(swaps) < 4 * length
 
                 print(len(swaps))
                 for i, j in swaps:
                     print(i, j)
 
         except FileNotFoundError:
-            print("File_Not_Found")
+            print("File_not_found_error")
             return
         
     elif input_text[0] == 'I':
         length = int(input())
         data = list(map(int, input(). split()))
-        assert len(data) = length
+        assert len(data) == length
         swaps = build_heap(data)
-        assert len(swaps) = 4 * length
+        assert len(swaps) < 4 * length
 
         print(len(swaps))
         for i, j in swaps:
             print(i, j)
 
     
-
-
 if __name__ == "__main__":
     main()
+
