@@ -3,39 +3,62 @@
 
 def build_heap(data):
     swaps = []
-    # TODO: Creat heap and heap sort
-    # try to achieve  O(n) and not O(n2)
-
-
+    n = len(data)
+    for i in range(n // 2, -`1, -1`):
+        sift_down(i, data, swaps)
     return swaps
 
 
+def sift_down(i, data, swaps):
+    n = len(data)
+    min_index = i
+    left_child = 2 * i + 1
+    if left_child < n and data[left_child] < data[min_index]:
+        min_index = left_child
+    right_child = 2 * i + 2
+    if right_child < n and data[right_child] < data[min_index]:
+        min_index = right_child
+    if i != min_index:
+        data[i], data[min_index] = data[min_index], data[i]
+        swaps.append((i, min_index))
+        sift_down(min_index, data, swaps)
+
 def main():
+    input_text = input()
+
+    if input_text[0] == 'F':
+        input_file = input().strip()
+        input_file = f"tests/{input_file}"
     
-    # TODO : add input and corresponding checks
-    # add another input for I or F 
-    # first two tests are from keyboard, third test is from a file
+    if 'a' not in input_file:
+        try:
+            with open(input_file, "r") as f:
+                length = int(f.readline())
+                data = list(map(int, f.readline().split()))
+                assert len(data) == length
+                swaps = build_heap(data)
+                assert len(swaps) < 4 * lenght
 
+                print(len(swaps))
+                for i, j in swaps:
+                    print(i, j)
 
-    # input from keyboard
-    n = int(input())
-    data = list(map(int, input().split()))
+        except FileNotFoundError:
+            print("File_Not_Found")
+            return
+        
+    elif input_text[0] == 'I':
+        length = int(input())
+        data = list(map(int, input(). split()))
+        assert len(data) = length
+        swaps = build_heap(data)
+        assert len(swaps) = 4 * length
 
-    # checks if lenght of data is the same as the said lenght
-    assert len(data) == n
+        print(len(swaps))
+        for i, j in swaps:
+            print(i, j)
 
-    # calls function to assess the data 
-    # and give back all swaps
-    swaps = build_heap(data)
-
-    # TODO: output how many swaps were made, 
-    # this number should be less than 4n (less than 4*len(data))
-
-
-    # output all swaps
-    print(len(swaps))
-    for i, j in swaps:
-        print(i, j)
+    
 
 
 if __name__ == "__main__":
